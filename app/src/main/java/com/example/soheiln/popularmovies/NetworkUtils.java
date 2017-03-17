@@ -17,10 +17,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-/**
- * Created by distributionlab on 3/15/17.
- */
-
 
 public class NetworkUtils {
 
@@ -95,9 +91,13 @@ public class NetworkUtils {
     }
 
     private static String getImageUrlFromPosterPath(String poster_path) {
+        String poster_path_without_slash = "";
+        if (poster_path.length()>0) {
+            poster_path_without_slash = poster_path.substring(1);
+        }
         Uri uri = Uri.parse(BASE_URL_MOVIE_IMAGE).buildUpon()
                 .appendPath(IMAGE_SIZE)
-                .appendPath(poster_path)
+                .appendPath(poster_path_without_slash)
                 .build();
         return uri.toString();
     }

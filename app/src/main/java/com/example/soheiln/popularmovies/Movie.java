@@ -1,10 +1,13 @@
 package com.example.soheiln.popularmovies;
 
-/**
- * Created by distributionlab on 3/16/17.
- */
-
 public class Movie {
+
+    public static String TITLE_KEY = "TITLE_KEY";
+    public static String RATING_KEY = "RATING_KEY";
+    public static String RELEASE_DATE_KEY = "RELEASE_DATE_KEY";
+    public static String PLOT_KEY = "PLOT_KEY";
+    public static String IMAGE_URL_KEY = "IMAGE_URL_KEY";
+
     public int id = 0;
     public String title = "";
     public String rating = "";
