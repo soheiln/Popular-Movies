@@ -1,8 +1,11 @@
 package com.example.soheiln.popularmovies;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,19 +16,28 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     GridView mGridView;
     List<Movie> mMovies = new ArrayList<Movie>();
     MovieAdapter mAdapter;
+    SharedPreferences mSharedPreferences;
+    String mOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_grid);
 
-        mGridView = (GridView) findViewById(R.id.gv_movies);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
+
+        // Read movies sort order from preferences
+        mOrder = mSharedPreferences.getString(getString(R.string.pref_order_key),
+                                              getString(R.string.pref_order_key_popularity));
+
         mAdapter = new MovieAdapter(this);
+        mGridView = (GridView) findViewById(R.id.gv_movies);
         mGridView.setAdapter(mAdapter);
 
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -42,7 +54,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        new TMDBQueryTask(this).execute(NetworkUtils.MOVIE_ORDER_BY_POPULARITY);
+        new TMDBQueryTask(this).execute(mOrder);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -60,5 +78,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(settingsActivityIntent);
         }
         return true;
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(getString(R.string.pref_order_key))) {
+            mOrder = mSharedPreferences.getString(key, getString(R.string.pref_order_key_popularity));
+            new TMDBQueryTask(this).execute(mOrder);
+        }
     }
 }
