@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:paddingBottom="16dp"
+    android:paddingBottom="@dimen/margin_lg"
     android:fillViewport="true">
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,40 +15,43 @@
 
         <ImageView
             android:id="@+id/movie_image"
+            android:src="@drawable/sample_image"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginLeft="@dimen/margin_lg"
+            android:layout_marginRight="@dimen/margin_lg"
+            android:layout_marginTop="@dimen/margin_lg"
             android:adjustViewBounds="true"
-            android:maxHeight="300dp"
+            android:maxHeight="@dimen/movie_details_iv_height"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp" />
+            android:layout_marginStart="@dimen/margin_lg"
+            android:layout_marginEnd="@dimen/margin_lg" />
 
         <TextView
             android:id="@+id/movie_title"
-            android:layout_width="368dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginLeft="@dimen/margin_lg"
+            android:layout_marginRight="@dimen/margin_lg"
+            android:layout_marginTop="@dimen/margin_lg"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_image"
             android:fontFamily="sans-serif"
             android:text="@string/movie_title"
-            android:textSize="34sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movie_image"
-            android:layout_marginStart="16dp" />
+            android:textSize="@dimen/text_sz_xl"
+            />
 
         <TextView
             android:id="@+id/movie_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/margin_md"
             android:fontFamily="sans-serif-light"
             android:text="@string/movie_rating"
-            android:textSize="28sp"
+            android:textSize="@dimen/text_sz_lg"
             android:textStyle="italic"
             app:layout_constraintLeft_toLeftOf="@+id/movie_title"
             app:layout_constraintTop_toBottomOf="@+id/movie_title" />
@@ -57,10 +60,10 @@
             android:id="@+id/movie_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/margin_md"
             android:fontFamily="sans-serif-thin"
             android:text="@string/movie_date"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_sz_lg"
             app:layout_constraintLeft_toLeftOf="@+id/movie_title"
             app:layout_constraintTop_toBottomOf="@+id/movie_rating" />
 
@@ -68,15 +71,15 @@
             android:id="@+id/movie_plot"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginRight="@dimen/margin_lg"
+            android:layout_marginTop="@dimen/margin_md"
             android:fontFamily="sans-serif"
             android:text="@string/movie_plot"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_sz_md"
             app:layout_constraintLeft_toLeftOf="@+id/movie_title"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_date"
-            android:layout_marginEnd="16dp" />
+            android:layout_marginEnd="@dimen/margin_lg" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

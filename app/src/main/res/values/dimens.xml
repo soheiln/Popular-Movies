@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_xs">2dp</dimen>
+    <dimen name="margin_sm">4dp</dimen>
+    <dimen name="margin_md">8dp</dimen>
+    <dimen name="margin_lg">16dp</dimen>
+
+    <dimen name="text_sz_sm">12sp</dimen>
+    <dimen name="text_sz_md">14sp</dimen>
+    <dimen name="text_sz_lg">18sp</dimen>
+    <dimen name="text_sz_xl">22sp</dimen>
+
+    <dimen name="grid_item_height">250dp</dimen>
+    <dimen name="movie_details_iv_height">300dp</dimen>
+    
+</resources>
