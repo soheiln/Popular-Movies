@@ -32,7 +32,7 @@ public class NetworkUtils {
     private static final String PARAM_PAGE = "page";
     private static final String PAGE = "1";
 
-    private static final String TMDB_API_KEY = APIKeys.TMDB_API_KEY;
+    private static final String TMDB_API_KEY = BuildConfig.TMDB_API_KEY;
 
 
     public static List<Movie> getMoviesOrderedBy(String order) {
