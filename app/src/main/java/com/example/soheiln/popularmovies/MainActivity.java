@@ -1,17 +1,16 @@
 package com.example.soheiln.popularmovies;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     MovieAdapter mAdapter;
     SharedPreferences mSharedPreferences;
     String mOrder;
+    MainActivity self = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +44,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Movie movie = mMovies.get(position);
-                Intent movieDetailsActivityIntent = new Intent(getApplicationContext(), MovieDetailsActivity.class);
-                movieDetailsActivityIntent.putExtra(Movie.TITLE_KEY, movie.title);
-                movieDetailsActivityIntent.putExtra(Movie.RATING_KEY, movie.rating);
-                movieDetailsActivityIntent.putExtra(Movie.RELEASE_DATE_KEY, movie.release_date);
-                movieDetailsActivityIntent.putExtra(Movie.PLOT_KEY, movie.plot);
-                movieDetailsActivityIntent.putExtra(Movie.IMAGE_URL_KEY, movie.image_URL);
-                startActivity(movieDetailsActivityIntent);
+                new TMDBMovieDetailsTask(self).execute(movie);
             }
         });
 
-        new TMDBQueryTask(this).execute(mOrder);
+        new TMDBMoviesQueryTask(this).execute(mOrder);
     }
 
     @Override
@@ -84,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(getString(R.string.pref_order_key))) {
             mOrder = mSharedPreferences.getString(key, getString(R.string.pref_order_key_popularity));
-            new TMDBQueryTask(this).execute(mOrder);
+            new TMDBMoviesQueryTask(this).execute(mOrder);
         }
     }
 }

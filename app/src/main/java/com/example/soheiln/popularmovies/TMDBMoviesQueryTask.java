@@ -5,11 +5,11 @@ import android.os.AsyncTask;
 
 import java.util.List;
 
-public class TMDBQueryTask extends AsyncTask<String, Void, List<Movie>> {
+public class TMDBMoviesQueryTask extends AsyncTask<String, Void, List<Movie>> {
 
     public MainActivity mMainActivity;
 
-    TMDBQueryTask(MainActivity mainActivity) {
+    TMDBMoviesQueryTask(MainActivity mainActivity) {
         this.mMainActivity = mainActivity;
     }
 
