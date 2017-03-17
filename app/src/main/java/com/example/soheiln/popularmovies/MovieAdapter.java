@@ -41,21 +41,37 @@ public class MovieAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = convertView;
+        ViewHolder viewHolder;
 
-        LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
-        view = inflater.inflate(R.layout.movie_grid_item, parent, false);
-        ImageView imageView = (ImageView) view.findViewById(R.id.iv_movie_item);
+        if (convertView == null) {
+            // inflate the layout
+            LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
+            convertView = inflater.inflate(R.layout.movie_grid_item, parent, false);
+
+            // set up the viewHolder
+            viewHolder = new ViewHolder();
+            viewHolder.imageView = (ImageView) convertView.findViewById(R.id.iv_movie_item);
+
+            // store the holder with the view
+            convertView.setTag(viewHolder);
+        } else {
+            // get the viewHolder that is tagged with convertView
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
 
         Movie movie = mGridData.get(position);
-
-        Picasso.with(mContext).load(movie.image_URL).into(imageView);
-        return view;
-
+        if (movie != null) {
+            Picasso.with(mContext).load(movie.image_URL).into(viewHolder.imageView);
+        }
+        return convertView;
     }
 
     public void setGridData(List<Movie> data) {
         mGridData = data;
         notifyDataSetChanged();
+    }
+
+    static class ViewHolder {
+        ImageView imageView;
     }
 }

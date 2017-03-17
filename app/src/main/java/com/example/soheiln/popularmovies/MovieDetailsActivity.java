@@ -27,19 +27,23 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         // Read movie data from intent
         Intent intent = getIntent();
-        String title = intent.getStringExtra(Movie.TITLE_KEY);
-        String rating = intent.getStringExtra(Movie.RATING_KEY);
-        String release_date = intent.getStringExtra(Movie.RELEASE_DATE_KEY);
-        String plot = intent.getStringExtra(Movie.PLOT_KEY);
-        String image_url = intent.getStringExtra(Movie.IMAGE_URL_KEY);
+        if (intent != null) {
+            Bundle extras = intent.getExtras();
+            if ( extras != null ) {
+                String title = intent.getStringExtra(Movie.TITLE_KEY);
+                String rating = intent.getStringExtra(Movie.RATING_KEY);
+                String release_date = intent.getStringExtra(Movie.RELEASE_DATE_KEY);
+                String plot = intent.getStringExtra(Movie.PLOT_KEY);
+                String image_url = intent.getStringExtra(Movie.IMAGE_URL_KEY);
 
-        // Update UI elements with movie data
-        tv_title.setText(title);
-        tv_rating.setText("Rating: " + rating + " / 10");
-        tv_release_date.setText("Released: " + release_date);
-        tv_plot.setText(plot);
-        Picasso.with(this).setLoggingEnabled(true);
-        Picasso.with(this).load(image_url).into(iv_image);
-
+                // Update UI elements with movie data
+                tv_title.setText(title);
+                tv_rating.setText("Rating: " + rating + " / 10");
+                tv_release_date.setText("Released: " + release_date);
+                tv_plot.setText(plot);
+                Picasso.with(this).setLoggingEnabled(true);
+                Picasso.with(this).load(image_url).into(iv_image);
+            }
+        }
     }
 }
