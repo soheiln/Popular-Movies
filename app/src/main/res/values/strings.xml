@@ -16,4 +16,7 @@
 
     <string name="pref_order_key_popularity">popular</string>
     <string name="pref_order_key_rating">top_rated</string>
+
+    <string name="action_favorite">Add to favorites</string>
+    <string name="action_unfavorite">Remove from favorites</string>
 </resources>

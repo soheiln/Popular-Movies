@@ -6,9 +6,6 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-/**
- * Created by distributionlab on 3/15/17.
- */
 
 public class SettingsActivity extends AppCompatActivity {
     @Override

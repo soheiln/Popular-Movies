@@ -61,7 +61,7 @@ public class MovieAdapter extends BaseAdapter {
 
         Movie movie = mGridData.get(position);
         if (movie != null) {
-            Picasso.with(mContext).load(movie.image_URL).into(viewHolder.imageView);
+            Picasso.with(mContext).load(movie.image_url).into(viewHolder.imageView);
         }
         return convertView;
     }

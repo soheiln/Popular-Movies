@@ -2,6 +2,7 @@ package com.example.soheiln.popularmovies;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 
 import java.util.ArrayList;
 
@@ -18,19 +19,17 @@ public class TMDBMovieDetailsTask extends AsyncTask<Movie, Void, Movie> {
         Movie movie = movies[0];
         NetworkUtils.loadReviewsForMovie(movie);
         NetworkUtils.loadVideoUrlsForMovie(movie);
+
+        // check if movie is already in favorites DB and if so set its favorite flag
+        movie.favorite = MovieDBHelper.getDBHelper(mMainActivity).containsMovie(movie);
         return movie;
     }
 
     @Override
     protected void onPostExecute(Movie movie) {
         Intent movieDetailsActivityIntent = new Intent(mMainActivity.getApplicationContext(), MovieDetailsActivity.class);
-        movieDetailsActivityIntent.putExtra(Movie.TITLE_KEY, movie.title);
-        movieDetailsActivityIntent.putExtra(Movie.RATING_KEY, movie.rating);
-        movieDetailsActivityIntent.putExtra(Movie.RELEASE_DATE_KEY, movie.release_date);
-        movieDetailsActivityIntent.putExtra(Movie.PLOT_KEY, movie.plot);
-        movieDetailsActivityIntent.putExtra(Movie.IMAGE_URL_KEY, movie.image_URL);
-        movieDetailsActivityIntent.putExtra(Movie.REVIEWS_KEY, (ArrayList<String>) movie.reviews);
-        movieDetailsActivityIntent.putExtra(Movie.VIDEO_URLS_KEY, (ArrayList<String>) movie.video_urls);
+        Bundle bundle = movie.getBundle();
+        movieDetailsActivityIntent.putExtras(bundle);
         mMainActivity.startActivity(movieDetailsActivityIntent);
     }
 }

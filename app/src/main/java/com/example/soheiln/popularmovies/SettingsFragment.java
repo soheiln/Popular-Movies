@@ -8,9 +8,6 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
 
-/**
- * Created by distributionlab on 3/16/17.
- */
 
 public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
     @Override
