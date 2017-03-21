@@ -73,13 +73,48 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_lg"
             android:layout_marginTop="@dimen/margin_md"
-            android:fontFamily="sans-serif"
-            android:text="@string/movie_plot"
-            android:textSize="@dimen/text_sz_md"
             app:layout_constraintLeft_toLeftOf="@+id/movie_title"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_date"
-            android:layout_marginEnd="@dimen/margin_lg" />
+            android:fontFamily="sans-serif"
+            android:text="@string/movie_plot"
+            android:textSize="@dimen/text_sz_md"
+            />
+
+        <LinearLayout
+            android:id="@+id/movie_videos"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_lg"
+            android:layout_marginTop="@dimen/margin_md"
+            app:layout_constraintLeft_toLeftOf="@+id/movie_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_plot">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/movie_reviews"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_lg"
+            android:layout_marginTop="@dimen/margin_md"
+            app:layout_constraintLeft_toLeftOf="@+id/movie_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_videos"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/movie_reviews_title"
+                android:textSize="@dimen/text_sz_lg"
+                />
+
+        </LinearLayout>
+
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

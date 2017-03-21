@@ -5,7 +5,8 @@
     <string name="movie_rating">Rating: 4/5</string>
     <string name="movie_date">Oct 12 2014</string>
     <string name="movie_plot">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
-    
+    <string name="movie_reviews_title">Reviews\n</string>
+
 
     <string name="pref_order_key">order</string>
     <string name="pref_order_label">Sort Movies By</string>

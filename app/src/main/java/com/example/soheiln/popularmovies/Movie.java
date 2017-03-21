@@ -10,6 +10,8 @@ public class Movie {
     public static String RELEASE_DATE_KEY = "RELEASE_DATE_KEY";
     public static String PLOT_KEY = "PLOT_KEY";
     public static String IMAGE_URL_KEY = "IMAGE_URL_KEY";
+    public static String REVIEWS_KEY = "REVIEWS_KEY";
+    public static String VIDEO_URLS_KEY = "VIDEO_URLS_KEY";
 
     public int id = 0;
     public String title = "";
