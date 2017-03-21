@@ -22,7 +22,6 @@ public class AddToFavoritesDBTask extends AsyncTask<Movie, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
         mMovieDetailsActivity.movieFavorited(true);
     }
 }

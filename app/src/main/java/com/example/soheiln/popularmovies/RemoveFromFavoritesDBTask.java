@@ -20,7 +20,6 @@ public class RemoveFromFavoritesDBTask extends AsyncTask<Movie, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
         mMovieDetailsActivity.movieFavorited(false);
     }
 

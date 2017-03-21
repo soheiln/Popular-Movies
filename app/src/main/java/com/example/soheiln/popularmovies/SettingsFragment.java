@@ -20,11 +20,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         for (int i=0; i < count; i++) {
             Preference p = preferenceScreen.getPreference(i);
             if (!(p instanceof CheckBoxPreference)) {
-                String value = sharedPreferences.getString(p.getKey(), getString(R.string.pref_order_key_popularity));
+                String value = sharedPreferences.getString(p.getKey(), getString(R.string.pref_show_movies_key_popularity));
                 setPreferenceSummary(p, value);
             }
         }
-
     }
 
     private void setPreferenceSummary(Preference preference, String value) {

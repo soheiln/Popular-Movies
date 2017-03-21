@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     List<Movie> mMovies = new ArrayList<Movie>();
     MovieAdapter mAdapter;
     SharedPreferences mSharedPreferences;
-    String mOrder;
+    String mShowMoviesMode;
     MainActivity self = this;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,24 +34,71 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
-        // Read movies sort order from preferences
-        mOrder = mSharedPreferences.getString(getString(R.string.pref_order_key),
-                                              getString(R.string.pref_order_key_popularity));
+        // Read show movies mode from preferences, if not present default to popularity
+        mShowMoviesMode = mSharedPreferences.getString(getString(R.string.pref_show_movies_key),
+                                              getString(R.string.pref_show_movies_key_popularity));
 
         mAdapter = new MovieAdapter(this);
         mGridView = (GridView) findViewById(R.id.gv_movies);
         mGridView.setAdapter(mAdapter);
 
-        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Movie movie = mMovies.get(position);
-                new TMDBMovieDetailsTask(self).execute(movie);
-            }
-        });
+        initActivityForMode(mShowMoviesMode);
 
-        new TMDBMoviesQueryTask(this).execute(mOrder);
     }
+
+    private void initActivityForMode(String mShowMoviesMode) {
+        // if show movies mode is polularity or rating
+        if (mShowMoviesMode.equals(getString(R.string.pref_show_movies_key_popularity)) ||
+                mShowMoviesMode.equals(getString(R.string.pref_show_movies_key_rating))) {
+
+            // Set click listeners
+            mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Movie movie = mMovies.get(position);
+                    new TMDBMovieDetailsTask(self).execute(movie);
+                }
+            });
+
+            // kick off async task to retreive movies from TMDB over internet
+            new TMDBMoviesQueryTask(this).execute(mShowMoviesMode);
+        }
+
+        // if show movies mode is favorites only
+        if (mShowMoviesMode.equals(getString(R.string.pref_show_movies_key_favorites))) {
+
+            // Set click listeners
+            mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    Movie movie = mMovies.get(position);
+                    Intent movieDetailsActivityIntent = new Intent(getApplicationContext(), MovieDetailsActivity.class);
+                    Bundle bundle = movie.getBundle();
+                    movieDetailsActivityIntent.putExtras(bundle);
+                    startActivity(movieDetailsActivityIntent);
+                }
+            });
+
+            // kick off async task to retreive movies from local DB
+            new GetMoviesFromDBTask(this).execute();
+        }
+    }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        // if show movies mode is favorites, repopulate the grid view data to account for any
+        // potential recent adds/removes to favorites list if user is visiting back from
+        // MovieDetailsActivity
+        if (mShowMoviesMode.equals(getString(R.string.pref_show_movies_key_favorites))) {
+            mMovies = new ArrayList<Movie>();
+            mAdapter.setGridData(mMovies);
+            new GetMoviesFromDBTask(this).execute();
+        }
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -76,9 +125,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(getString(R.string.pref_order_key))) {
-            mOrder = mSharedPreferences.getString(key, getString(R.string.pref_order_key_popularity));
-            new TMDBMoviesQueryTask(this).execute(mOrder);
+        if (key.equals(getString(R.string.pref_show_movies_key))) {
+            mShowMoviesMode = mSharedPreferences.getString(key, getString(R.string.pref_show_movies_key_popularity));
+//            new TMDBMoviesQueryTask(this).execute(mOrder);
+            //TODO: test
+            initActivityForMode(mShowMoviesMode);
         }
     }
 }

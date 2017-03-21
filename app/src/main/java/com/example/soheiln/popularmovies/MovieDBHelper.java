@@ -87,17 +87,17 @@ public class MovieDBHelper extends SQLiteOpenHelper {
 
         // iterate through the movie records
         while(cursor.moveToNext()) {
-            int id = cursor.getInt(cursor.getColumnIndexOrThrow(MovieColumns.ID));
-            String title = cursor.getString(cursor.getColumnIndexOrThrow(MovieColumns.TITLE));
-            String rating = cursor.getString(cursor.getColumnIndexOrThrow(MovieColumns.RATING));
-            String release_date = cursor.getString(cursor.getColumnIndexOrThrow(MovieColumns.RELEASE_DATE));
-            String plot = cursor.getString(cursor.getColumnIndexOrThrow(MovieColumns.PLOT));
-            String image_url = cursor.getString(cursor.getColumnIndexOrThrow(MovieColumns.IMAGE_URL));
+            Movie movie = new Movie();
+            movie.id = cursor.getInt(cursor.getColumnIndexOrThrow(MovieColumns.ID));
+            movie.title = cursor.getString(cursor.getColumnIndexOrThrow(MovieColumns.TITLE));
+            movie.rating = cursor.getString(cursor.getColumnIndexOrThrow(MovieColumns.RATING));
+            movie.release_date = cursor.getString(cursor.getColumnIndexOrThrow(MovieColumns.RELEASE_DATE));
+            movie.plot = cursor.getString(cursor.getColumnIndexOrThrow(MovieColumns.PLOT));
+            movie.image_url = cursor.getString(cursor.getColumnIndexOrThrow(MovieColumns.IMAGE_URL));
 
-            List<String> reviews = getReviewListForMovieId(id);
-            List<String> video_urls = getVideoListForMovieId(id);
-
-            Movie movie = new Movie(id, title, rating, release_date, plot, image_url, video_urls, reviews);
+            movie.reviews = getReviewListForMovieId(movie.id);
+            movie.video_urls = getVideoListForMovieId(movie.id);
+            movie.favorite = true;
             movies.add(movie);
         }
 
@@ -217,7 +217,7 @@ public class MovieDBHelper extends SQLiteOpenHelper {
 
         List<String> video_urls = new ArrayList<String>();
         while(cursor.moveToNext()) {
-            String video_url = cursor.getString(cursor.getColumnIndexOrThrow(MovieColumns.REVIEW));
+            String video_url = cursor.getString(cursor.getColumnIndexOrThrow(MovieColumns.VIDEO_URL));
             video_urls.add(video_url);
         }
         return video_urls;

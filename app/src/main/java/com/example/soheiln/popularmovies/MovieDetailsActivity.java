@@ -3,6 +3,7 @@ package com.example.soheiln.popularmovies;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -120,6 +121,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 return true;
             case R.id.action_unfavorite:
                 new RemoveFromFavoritesDBTask(this).execute(mMovie);
+                return true;
+            // When the home button is pressed, take the user back to the VisualizerActivity
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
                 return true;
         }
         return true;
