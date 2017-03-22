@@ -2,6 +2,8 @@ package com.example.soheiln.popularmovies;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Parcelable;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
@@ -10,11 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.example.soheiln.popularmovies.data.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -128,9 +132,20 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(getString(R.string.pref_show_movies_key))) {
             mShowMoviesMode = mSharedPreferences.getString(key, getString(R.string.pref_show_movies_key_popularity));
-//            new TMDBMoviesQueryTask(this).execute(mOrder);
-            //TODO: test
             initActivityForMode(mShowMoviesMode);
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(Movie.PARCEL_NAME, (ArrayList<Movie>) mMovies);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mMovies = savedInstanceState.getParcelableArrayList(Movie.PARCEL_NAME);
+        mAdapter.setGridData(mMovies);
     }
 }

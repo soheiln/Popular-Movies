@@ -40,7 +40,6 @@ public class Movie implements Parcelable {
     }
 
 
-
     /*
      * Implementation of the Percelable interface
      */

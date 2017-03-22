@@ -74,4 +74,6 @@ public class MovieAdapter extends BaseAdapter {
     static class ViewHolder {
         ImageView imageView;
     }
+
+    
 }
