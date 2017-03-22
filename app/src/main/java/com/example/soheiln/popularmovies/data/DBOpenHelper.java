@@ -3,7 +3,6 @@ package com.example.soheiln.popularmovies.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.example.soheiln.popularmovies.data.Movie.MovieColumns;
 
 
 public class DBOpenHelper extends SQLiteOpenHelper {
@@ -19,25 +18,25 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     private static final String MOVIE_TABLE_CREATE =
             "CREATE TABLE " + MOVIE_TABLE_NAME + " (" +
-                    MovieColumns.ID + " INT PRIMARY KEY, " +
-                    MovieColumns.TITLE + " TEXT, " +
-                    MovieColumns.RATING + " TEXT, " +
-                    MovieColumns.RELEASE_DATE + " TEXT, " +
-                    MovieColumns.PLOT + " TEXT, " +
-                    MovieColumns.IMAGE_URL + " TEXT);";
+                    MovieContract.MovieEntry.COL_ID+ " INT PRIMARY KEY, " +
+                    MovieContract.MovieEntry.COL_TITLE + " TEXT, " +
+                    MovieContract.MovieEntry.COL_RATING + " TEXT, " +
+                    MovieContract.MovieEntry.COL_RELEASE_DATE + " TEXT, " +
+                    MovieContract.MovieEntry.COL_PLOT + " TEXT, " +
+                    MovieContract.MovieEntry.COL_IMAGE_URL + " TEXT);";
 
     private static final String REVIEW_TABLE_CREATE =
             "CREATE TABLE " + REVIEW_TABLE_NAME + " (" +
-                    MovieColumns.ID + " INT, " +
-                    MovieColumns.REVIEW + " TEXT, " +
-                    "FOREIGN KEY(" + MovieColumns.ID + ") REFERENCES " + MOVIE_TABLE_NAME + "(" + MovieColumns.ID + ")" +
+                    MovieContract.MovieEntry.COL_ID + " INT, " +
+                    MovieContract.ReviewEntry.COL_REVIEW + " TEXT, " +
+                    "FOREIGN KEY(" + MovieContract.MovieEntry.COL_ID + ") REFERENCES " + MOVIE_TABLE_NAME + "(" + MovieContract.MovieEntry.COL_ID + ")" +
                     ");";
 
     private static final String VIDEO_TABLE_CREATE =
             "CREATE TABLE " + VIDEO_TABLE_NAME + " (" +
-                    MovieColumns.ID + " INT, " +
-                    MovieColumns.VIDEO_URL + " TEXT, " +
-                    "FOREIGN KEY(" + MovieColumns.ID + ") REFERENCES " + MOVIE_TABLE_NAME + "(" + MovieColumns.ID + ")" +
+                    MovieContract.MovieEntry.COL_ID + " INT, " +
+                    MovieContract.VideoEntry.COL_VIDEO_URL + " TEXT, " +
+                    "FOREIGN KEY(" + MovieContract.MovieEntry.COL_ID + ") REFERENCES " + MOVIE_TABLE_NAME + "(" + MovieContract.MovieEntry.COL_ID + ")" +
                     ");";
 
 

@@ -50,7 +50,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         if (intent != null) {
             Bundle extras = intent.getExtras();
             if ( extras != null ) {
-                mMovie = Movie.extractMovieFromBundle(extras);
+                mMovie = extras.getParcelable(Movie.PARCEL_NAME);
 
                 // Update UI elements with movie data
                 tv_title.setText(mMovie.title);

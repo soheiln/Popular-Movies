@@ -41,12 +41,12 @@ public class MovieDBHelper {
         // iterate through the movie records
         while(cursor.moveToNext()) {
             Movie movie = new Movie();
-            movie.id = cursor.getInt(cursor.getColumnIndexOrThrow(Movie.MovieColumns.ID));
-            movie.title = cursor.getString(cursor.getColumnIndexOrThrow(Movie.MovieColumns.TITLE));
-            movie.rating = cursor.getString(cursor.getColumnIndexOrThrow(Movie.MovieColumns.RATING));
-            movie.release_date = cursor.getString(cursor.getColumnIndexOrThrow(Movie.MovieColumns.RELEASE_DATE));
-            movie.plot = cursor.getString(cursor.getColumnIndexOrThrow(Movie.MovieColumns.PLOT));
-            movie.image_url = cursor.getString(cursor.getColumnIndexOrThrow(Movie.MovieColumns.IMAGE_URL));
+            movie.id = cursor.getInt(cursor.getColumnIndexOrThrow(MovieContract.MovieEntry.COL_ID));
+            movie.title = cursor.getString(cursor.getColumnIndexOrThrow(MovieContract.MovieEntry.COL_TITLE));
+            movie.rating = cursor.getString(cursor.getColumnIndexOrThrow(MovieContract.MovieEntry.COL_RATING));
+            movie.release_date = cursor.getString(cursor.getColumnIndexOrThrow(MovieContract.MovieEntry.COL_RELEASE_DATE));
+            movie.plot = cursor.getString(cursor.getColumnIndexOrThrow(MovieContract.MovieEntry.COL_PLOT));
+            movie.image_url = cursor.getString(cursor.getColumnIndexOrThrow(MovieContract.MovieEntry.COL_IMAGE_URL));
 
             movie.reviews = getReviewListForMovieId(movie.id);
             movie.video_urls = getVideoListForMovieId(movie.id);
@@ -68,12 +68,12 @@ public class MovieDBHelper {
 
         // Create a new map of values where column names are the keys
         ContentValues values = new ContentValues();
-        values.put(Movie.MovieColumns.ID, movie.id);
-        values.put(Movie.MovieColumns.TITLE, movie.title);
-        values.put(Movie.MovieColumns.RATING, movie.rating);
-        values.put(Movie.MovieColumns.RELEASE_DATE, movie.release_date);
-        values.put(Movie.MovieColumns.PLOT, movie.plot);
-        values.put(Movie.MovieColumns.IMAGE_URL, movie.image_url);
+        values.put(MovieContract.MovieEntry.COL_ID, movie.id);
+        values.put(MovieContract.MovieEntry.COL_TITLE, movie.title);
+        values.put(MovieContract.MovieEntry.COL_RATING, movie.rating);
+        values.put(MovieContract.MovieEntry.COL_RELEASE_DATE, movie.release_date);
+        values.put(MovieContract.MovieEntry.COL_PLOT, movie.plot);
+        values.put(MovieContract.MovieEntry.COL_IMAGE_URL, movie.image_url);
 
         // Insert the new row into the movie table
         mContentResolver.insert(MovieContract.MovieEntry.CONTENT_URI, values);
@@ -81,16 +81,16 @@ public class MovieDBHelper {
         // Insert movie reviews into the review table
         for (String review: movie.reviews) {
             ContentValues cv = new ContentValues();
-            cv.put(Movie.MovieColumns.ID, movie.id);
-            cv.put(Movie.MovieColumns.REVIEW, review);
+            cv.put(MovieContract.MovieEntry.COL_ID, movie.id);
+            cv.put(MovieContract.ReviewEntry.COL_REVIEW, review);
             mContentResolver.insert(MovieContract.ReviewEntry.CONTENT_URI, cv);
         }
 
         // Insert movie video urls into the video table
         for (String video_url: movie.video_urls) {
             ContentValues cv = new ContentValues();
-            cv.put(Movie.MovieColumns.ID, movie.id);
-            cv.put(Movie.MovieColumns.VIDEO_URL, video_url);
+            cv.put(MovieContract.MovieEntry.COL_ID, movie.id);
+            cv.put(MovieContract.VideoEntry.COL_VIDEO_URL, video_url);
             mContentResolver.insert(MovieContract.VideoEntry.CONTENT_URI, cv);
         }
     }
@@ -99,7 +99,7 @@ public class MovieDBHelper {
      * Removes a single Movie object from the database
      */
     public void deleteMovie(Movie movie) {
-        String selection = Movie.MovieColumns.ID + " = ?";
+        String selection = MovieContract.MovieEntry.COL_ID + " = ?";
         String[] selectionArgs = { Integer.toString(movie.id) };
 
         // delete review records
@@ -117,7 +117,7 @@ public class MovieDBHelper {
      * Returns true if the provided Movie object is already present in the database
      */
     public boolean containsMovie(Movie movie) {
-        String selection = Movie.MovieColumns.ID + " = ?";
+        String selection = MovieContract.MovieEntry.COL_ID + " = ?";
         String[] selectionArgs = { Integer.toString(movie.id) };
         Cursor cursor = mContentResolver.query(MovieContract.MovieEntry.CONTENT_URI,
                 null,
@@ -130,7 +130,7 @@ public class MovieDBHelper {
 
     private List<String> getReviewListForMovieId(int movieId) {
         String[] projection = { MovieContract.ReviewEntry.COL_REVIEW };
-        String selection = Movie.MovieColumns.ID + " = ?";
+        String selection = MovieContract.MovieEntry.COL_ID + " = ?";
         String[] selectionArgs = { Integer.toString(movieId) };
         Cursor cursor = mContentResolver.query(MovieContract.ReviewEntry.CONTENT_URI,
                 projection,
@@ -139,7 +139,7 @@ public class MovieDBHelper {
                 null);
         List<String> reviews = new ArrayList<String>();
         while(cursor.moveToNext()) {
-            String review = cursor.getString(cursor.getColumnIndexOrThrow(Movie.MovieColumns.REVIEW));
+            String review = cursor.getString(cursor.getColumnIndexOrThrow(MovieContract.ReviewEntry.COL_REVIEW));
             reviews.add(review);
         }
         return reviews;
@@ -148,7 +148,7 @@ public class MovieDBHelper {
 
     private List<String> getVideoListForMovieId(int movieId) {
         String[] projection = { MovieContract.VideoEntry.COL_VIDEO_URL };
-        String selection = Movie.MovieColumns.ID + " = ?";
+        String selection = MovieContract.MovieEntry.COL_ID + " = ?";
         String[] selectionArgs = { Integer.toString(movieId) };
         Cursor cursor = mContentResolver.query(MovieContract.VideoEntry.CONTENT_URI,
                 projection,
@@ -157,7 +157,7 @@ public class MovieDBHelper {
                 null);
         List<String> video_urls = new ArrayList<String>();
         while(cursor.moveToNext()) {
-            String video_url = cursor.getString(cursor.getColumnIndexOrThrow(Movie.MovieColumns.VIDEO_URL));
+            String video_url = cursor.getString(cursor.getColumnIndexOrThrow(MovieContract.VideoEntry.COL_VIDEO_URL));
             video_urls.add(video_url);
         }
         return video_urls;

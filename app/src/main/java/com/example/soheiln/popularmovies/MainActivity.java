@@ -73,7 +73,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                     Movie movie = mMovies.get(position);
                     Intent movieDetailsActivityIntent = new Intent(getApplicationContext(), MovieDetailsActivity.class);
-                    Bundle bundle = movie.getBundle();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(Movie.PARCEL_NAME, movie);
                     movieDetailsActivityIntent.putExtras(bundle);
                     startActivity(movieDetailsActivityIntent);
                 }

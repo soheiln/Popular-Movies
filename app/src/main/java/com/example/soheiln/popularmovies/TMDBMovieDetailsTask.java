@@ -30,7 +30,8 @@ public class TMDBMovieDetailsTask extends AsyncTask<Movie, Void, Movie> {
     @Override
     protected void onPostExecute(Movie movie) {
         Intent movieDetailsActivityIntent = new Intent(mMainActivity.getApplicationContext(), MovieDetailsActivity.class);
-        Bundle bundle = movie.getBundle();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Movie.PARCEL_NAME, movie);
         movieDetailsActivityIntent.putExtras(bundle);
         mMainActivity.startActivity(movieDetailsActivityIntent);
     }
