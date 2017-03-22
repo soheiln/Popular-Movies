@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import java.util.ArrayList;
+import com.example.soheiln.popularmovies.data.DBOpenHelper;
+import com.example.soheiln.popularmovies.data.Movie;
+import com.example.soheiln.popularmovies.data.MovieDBHelper;
 
 public class TMDBMovieDetailsTask extends AsyncTask<Movie, Void, Movie> {
 
@@ -21,7 +23,7 @@ public class TMDBMovieDetailsTask extends AsyncTask<Movie, Void, Movie> {
         NetworkUtils.loadVideoUrlsForMovie(movie);
 
         // check if movie is already in favorites DB and if so set its favorite flag
-        movie.favorite = MovieDBHelper.getDBHelper(mMainActivity).containsMovie(movie);
+        movie.favorite = MovieDBHelper.getInstance(mMainActivity.getApplicationContext()).containsMovie(movie);
         return movie;
     }
 

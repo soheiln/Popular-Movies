@@ -1,7 +1,8 @@
 package com.example.soheiln.popularmovies;
 
-import android.app.Activity;
 import android.os.AsyncTask;
+
+import com.example.soheiln.popularmovies.data.Movie;
 
 import java.util.List;
 

@@ -6,26 +6,23 @@ import android.net.Uri;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.soheiln.popularmovies.data.DBOpenHelper;
+import com.example.soheiln.popularmovies.data.Movie;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
     MovieDetailsActivity self = this;
     private Menu mMenu;
-    private MovieDBHelper mMovieDBHelper;
+    private DBOpenHelper mDBOpenHelper;
     private Movie mMovie;
 
     @Override
@@ -34,7 +31,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_details);
 
         // Set up private variables
-        mMovieDBHelper = MovieDBHelper.getDBHelper(this);
+        mDBOpenHelper = DBOpenHelper.getDBHelper(this);
 
         // Enable the Up button in the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

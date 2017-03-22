@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.example.soheiln.popularmovies.data.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

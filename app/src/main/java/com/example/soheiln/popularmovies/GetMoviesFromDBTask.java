@@ -2,6 +2,10 @@ package com.example.soheiln.popularmovies;
 
 import android.os.AsyncTask;
 
+import com.example.soheiln.popularmovies.data.Movie;
+import com.example.soheiln.popularmovies.data.DBOpenHelper;
+import com.example.soheiln.popularmovies.data.MovieDBHelper;
+
 import java.util.List;
 
 
@@ -15,8 +19,7 @@ public class GetMoviesFromDBTask extends AsyncTask <Void, Void, List<Movie>>{
 
     @Override
     protected List<Movie> doInBackground(Void... voids) {
-        MovieDBHelper dbHelper = MovieDBHelper.getDBHelper(mMainActivity);
-        return dbHelper.getMovies();
+        return MovieDBHelper.getInstance(mMainActivity.getApplicationContext()).getMovies();
     }
 
     @Override

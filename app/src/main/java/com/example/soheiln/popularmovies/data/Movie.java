@@ -1,4 +1,4 @@
-package com.example.soheiln.popularmovies;
+package com.example.soheiln.popularmovies.data;
 
 import android.os.Bundle;
 import android.provider.BaseColumns;
@@ -8,14 +8,6 @@ import java.util.List;
 
 public class Movie {
 
-    public static String ID_KEY = "ID_KEY";
-    public static String TITLE_KEY = "TITLE_KEY";
-    public static String RATING_KEY = "RATING_KEY";
-    public static String RELEASE_DATE_KEY = "RELEASE_DATE_KEY";
-    public static String PLOT_KEY = "PLOT_KEY";
-    public static String IMAGE_URL_KEY = "IMAGE_URL_KEY";
-    public static String REVIEWS_KEY = "REVIEWS_KEY";
-    public static String VIDEO_URLS_KEY = "VIDEO_URLS_KEY";
     public static String FAVORITE_KEY = "FAVORITE";
 
     public int id = 0;
@@ -30,7 +22,7 @@ public class Movie {
 
     Movie() {}
 
-    Movie(int id, String title, String rating, String release_date, String plot, String image_URL) {
+    public Movie(int id, String title, String rating, String release_date, String plot, String image_URL) {
         this.id = id;
         this.title = title;
         this.rating = rating;
@@ -63,28 +55,28 @@ public class Movie {
 
     public Bundle getBundle() {
         Bundle b = new Bundle();
-        b.putInt(Movie.ID_KEY, id);
-        b.putString(Movie.TITLE_KEY, title);
-        b.putString(Movie.RATING_KEY, rating);
-        b.putString(Movie.RELEASE_DATE_KEY, release_date);
-        b.putString(Movie.PLOT_KEY, plot);
-        b.putString(Movie.IMAGE_URL_KEY, image_url);
-        b.putStringArrayList(Movie.REVIEWS_KEY, (ArrayList<String>) reviews);
-        b.putStringArrayList(Movie.VIDEO_URLS_KEY, (ArrayList<String>) video_urls);
+        b.putInt(MovieContract.MovieEntry.COL_ID, id);
+        b.putString(MovieContract.MovieEntry.COL_TITLE, title);
+        b.putString(MovieContract.MovieEntry.COL_RATING, rating);
+        b.putString(MovieContract.MovieEntry.COL_RELEASE_DATE, release_date);
+        b.putString(MovieContract.MovieEntry.COL_RELEASE_DATE, plot);
+        b.putString(MovieContract.MovieEntry.COL_IMAGE_URL, image_url);
+        b.putStringArrayList(MovieContract.ReviewEntry.COL_REVIEW, (ArrayList<String>) reviews);
+        b.putStringArrayList(MovieContract.VideoEntry.COL_VIDEO_URL, (ArrayList<String>) video_urls);
         b.putBoolean(Movie.FAVORITE_KEY, favorite);
         return b;
     }
 
     public static Movie extractMovieFromBundle(Bundle bundle) {
         Movie movie = new Movie();
-        movie.id = bundle.getInt(Movie.ID_KEY);
-        movie.title = bundle.getString(Movie.TITLE_KEY);
-        movie.rating = bundle.getString(Movie.RATING_KEY);
-        movie.release_date = bundle.getString(Movie.RELEASE_DATE_KEY);
-        movie.plot = bundle.getString(Movie.PLOT_KEY);
-        movie.image_url = bundle.getString(Movie.IMAGE_URL_KEY);
-        movie.reviews = bundle.getStringArrayList(Movie.REVIEWS_KEY);
-        movie.video_urls = bundle.getStringArrayList(Movie.VIDEO_URLS_KEY);
+        movie.id = bundle.getInt(MovieContract.MovieEntry.COL_ID);
+        movie.title = bundle.getString(MovieContract.MovieEntry.COL_TITLE);
+        movie.rating = bundle.getString(MovieContract.MovieEntry.COL_RATING);
+        movie.release_date = bundle.getString(MovieContract.MovieEntry.COL_RELEASE_DATE);
+        movie.plot = bundle.getString(MovieContract.MovieEntry.COL_PLOT);
+        movie.image_url = bundle.getString(MovieContract.MovieEntry.COL_IMAGE_URL);
+        movie.reviews = bundle.getStringArrayList(MovieContract.ReviewEntry.COL_REVIEW);
+        movie.video_urls = bundle.getStringArrayList(MovieContract.VideoEntry.COL_VIDEO_URL);
         movie.favorite = bundle.getBoolean(Movie.FAVORITE_KEY);
         return movie;
     }

@@ -1,7 +1,8 @@
 package com.example.soheiln.popularmovies;
 
-import android.content.Context;
 import android.net.Uri;
+
+import com.example.soheiln.popularmovies.data.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONException;

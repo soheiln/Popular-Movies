@@ -2,6 +2,10 @@ package com.example.soheiln.popularmovies;
 
 import android.os.AsyncTask;
 
+import com.example.soheiln.popularmovies.data.DBOpenHelper;
+import com.example.soheiln.popularmovies.data.Movie;
+import com.example.soheiln.popularmovies.data.MovieDBHelper;
+
 
 public class RemoveFromFavoritesDBTask extends AsyncTask<Movie, Void, Void> {
     public MovieDetailsActivity mMovieDetailsActivity;
@@ -13,8 +17,7 @@ public class RemoveFromFavoritesDBTask extends AsyncTask<Movie, Void, Void> {
     @Override
     protected Void doInBackground(Movie... movies) {
         Movie movie = movies[0];
-        MovieDBHelper dbHelper = MovieDBHelper.getDBHelper(mMovieDetailsActivity);
-        dbHelper.deleteMovie(movie);
+        MovieDBHelper.getInstance(mMovieDetailsActivity.getApplicationContext()).deleteMovie(movie);
         return null;
     }
 

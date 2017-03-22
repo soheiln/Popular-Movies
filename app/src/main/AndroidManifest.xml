@@ -25,6 +25,11 @@
         <activity
             android:name=".MovieDetailsActivity"
             android:parentActivityName=".MainActivity"></activity>
+        <provider
+            android:authorities="com.example.soheiln.popularmovies"
+            android:name="com.example.soheiln.popularmovies.data.MovieContentProvider"
+            android:exported="false" />
+
     </application>
 
 </manifest>
